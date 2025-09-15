@@ -1,0 +1,85 @@
+/* Container */
+.container {
+  margin: 40px auto;
+  width: 95%;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+/* Page Title */
+.page-title {
+  text-align: center;
+  color: #5e35b1; /* Slightly softer purple */
+  font-weight: bold;
+  font-size: 28px;
+  margin-bottom: 25px;
+}
+
+/* Actions Row */
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  flex: 1;
+  margin-right: 20px;
+}
+
+/* Add Employee Button - match search bar height */
+.add-btn {
+  height: 56px; /* Match default mat-form-field height */
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  border-radius: 6px;
+  padding: 0 16px;
+  font-size: 14px;
+  background: linear-gradient(45deg, #ff4081, #ff80ab);
+  color: white;
+}
+
+.add-btn mat-icon {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+/* Table Styling */
+.table-container {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.custom-table mat-header-cell {
+  background: linear-gradient(45deg, #512da8, #673ab7);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.custom-table mat-cell {
+  padding: 12px;
+  font-size: 14px;
+}
+
+mat-row:nth-child(even) {
+  background-color: #ede7f6; /* light purple */
+}
+
+mat-row:nth-child(odd) {
+  background-color: #f3e5f5; /* lighter purple */
+}
+
+mat-row:hover {
+  background-color: #d1c4e9;
+  cursor: pointer;
+}
+
+/* Buttons inside table */
+button[mat-raised-button] {
+  border-radius: 6px;
+  font-size: 13px;
+  padding: 5px 12px;
+}

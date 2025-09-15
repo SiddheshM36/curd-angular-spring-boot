@@ -1,0 +1,81 @@
+<div class="container">
+
+  <!-- Page Title -->
+  <h2 class="page-title">🚀 Employee Management System</h2>
+
+  <!-- Search and Add Button Row -->
+  <div class="actions">
+    <mat-form-field appearance="outline" class="search-box">
+      <mat-label>Search Employee</mat-label>
+      <input (input)="searchEmployee(filter.value)" matInput type="text" #filter>
+      <button *ngIf="filter.value" mat-icon-button matSuffix (click)="filter.value=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <button (click)="openDialog(employee)" mat-raised-button color="accent" class="add-btn">
+      <mat-icon>person_add</mat-icon> Add Employee
+    </button>
+  </div>
+
+  <!-- Employee Table -->
+  <div class="table-container mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" matSort class="custom-table">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> ID </mat-header-cell>
+        <mat-cell *matCellDef="let employee"> {{employee.id}} </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let employee"> {{employee.name}} </mat-cell>
+      </ng-container>
+
+      <!-- Email Column -->
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+        <mat-cell *matCellDef="let employee"> {{employee.email}} </mat-cell>
+      </ng-container>
+
+      <!-- Salary Column -->
+      <ng-container matColumnDef="salary">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Salary </mat-header-cell>
+        <mat-cell *matCellDef="let employee"> ₹{{employee.salary}} </mat-cell>
+      </ng-container>
+
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+        <mat-cell *matCellDef="let employee">
+          <button mat-raised-button color="primary" (click)="openDialog(employee)">
+            <mat-icon>edit</mat-icon> Edit
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Delete Column -->
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> Delete </mat-header-cell>
+        <mat-cell *matCellDef="let employee">
+          <button mat-raised-button color="warn" (click)="deleteEmployee(employee.id)">
+            <mat-icon>delete</mat-icon> Delete
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Header & Rows -->
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let employees; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <!-- Paginator -->
+    <mat-paginator #paginator
+                   [pageSize]="10"
+                   [pageSizeOptions]="[5, 10, 25]"
+                   [showFirstLastButtons]="true">
+    </mat-paginator>
+  </div>
+</div>
