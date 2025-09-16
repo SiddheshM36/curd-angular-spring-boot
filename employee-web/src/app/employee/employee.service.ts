@@ -8,23 +8,24 @@ import { Employee } from './employee';
 })
 export class EmployeeService {
 
-  constructor(private _httpClient:HttpClient) { }
+  constructor(private _httpClient: HttpClient) { }
 
-  baseUrl:String="/api/v1/employees";
+  // 🔥 Use your EB backend URL here
+  baseUrl: string = "http://employee-service.ap-south-1.elasticbeanstalk.com/api/v1/employees";
 
-  fetchAllEmployees():Observable<Employee[]>{
-    return this._httpClient.get<Employee[]>(`${this.baseUrl}`);
+  fetchAllEmployees(): Observable<Employee[]> {
+    return this._httpClient.get<Employee[]>(this.baseUrl);
   }
 
-  createEmployee(data:Employee){
-    return this._httpClient.post<Employee>(`${this.baseUrl}`,data);
+  createEmployee(data: Employee) {
+    return this._httpClient.post<Employee>(this.baseUrl, data);
   }
 
-  updateEmployee(data:Employee){
-    return this._httpClient.put<Employee>(`${this.baseUrl}/${data.id}`,data);
+  updateEmployee(data: Employee) {
+    return this._httpClient.put<Employee>(`${this.baseUrl}/${data.id}`, data);
   }
 
-  deleteEmployee(id:Number){
+  deleteEmployee(id: Number) {
     return this._httpClient.delete<Employee>(`${this.baseUrl}/${id}`);
   }
 
