@@ -8,7 +8,7 @@ import { Employee } from './employee';
 })
 export class EmployeeService {
 
-  baseUrl: string = "https://dbdkwu4beg.execute-api.ap-south-1.amazonaws.com/dev";
+  baseUrl: string = "https://ztr264r579.execute-api.us-east-1.amazonaws.com/dev";
   private accessToken: string | null = null;
   private idToken: string | null = null;
 
@@ -28,6 +28,7 @@ export class EmployeeService {
       if (accessToken) {
         this.accessToken = accessToken;
         console.log('✅ Access Token:', this.accessToken);
+        localStorage.setItem('access_token', accessToken);
       } else {
         console.warn('⚠️ No access_token found in URL fragment.');
       }
@@ -35,6 +36,7 @@ export class EmployeeService {
       if (idToken) {
         this.idToken = idToken;
         console.log('✅ ID Token:', this.idToken);
+        localStorage.setItem('id_token', idToken);
       } else {
         console.warn('⚠️ No id_token found in URL fragment.');
       }
@@ -42,6 +44,13 @@ export class EmployeeService {
       // Clean URL (remove token fragment)
       history.replaceState(null, '', window.location.pathname + window.location.search);
     }
+
+    else {
+        // Load from localStorage on refresh
+        this.accessToken = localStorage.getItem('access_token');
+        this.idToken = localStorage.getItem('id_token');
+      }
+
   }
 
   // Getters for debugging
