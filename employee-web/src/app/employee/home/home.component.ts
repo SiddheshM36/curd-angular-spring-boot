@@ -43,17 +43,34 @@ salary:any=undefined;
   readonly dialog=inject(MatDialog);
 
   ngAfterViewInit(): void {
-    this.employeeService.fetchAllEmployees().subscribe((data)=>{
-      this.employees=data;
-      this.dataSource = new MatTableDataSource<Employee>(data);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
-    })
+      const token = this.employeeService.getAccessToken(); // ✅ switched to access_token
 
-  }
+      if (!token) {
+        console.error('❌ No Access Token available, cannot call API');
+        return;
+      }
 
-  deleteEmployee(id:Number){
-    const isConfirmed=window.confirm("Are you sure you want to Delete?");
+      console.log('✅ Access Token in HomeComponent:', token);
+
+      this.employeeService.fetchAllEmployees().subscribe({
+        next: (data) => {
+          console.log('✅ Employees fetched:', data);
+          this.employees = data;
+          this.dataSource = new MatTableDataSource<Employee>(data);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
+        },
+        error: (err) => {
+          console.error('❌ API error:', err);
+          this.employees = [];
+          this.dataSource = new MatTableDataSource<Employee>([]);
+        }
+      });
+    }
+
+
+  deleteEmployee(id:number){
+     const isConfirmed=window.confirm("Are you sure you want to Delete?");
     if(isConfirmed){
       this.employeeService.deleteEmployee(id).subscribe((data)=>{
         this.employees=this.employees.filter(item=>item.id!=id);
